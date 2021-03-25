@@ -39,6 +39,11 @@
         - ansible-nas-docker
         - ansible-nas
 
+    - role: bitwarden
+      tags:
+        - bitwarden
+      when: (bitwarden_enabled | default(False))
+
 
     ###
     ### Applications
@@ -52,11 +57,6 @@
       tags:
         - bazarr
       when: (bazarr_enabled | default(False))
-
-    - role: bitwarden
-      tags:
-        - bitwarden
-      when: (bitwarden_enabled | default(False))
 
     - role: cloudcmd
       tags:

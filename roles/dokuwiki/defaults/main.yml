@@ -2,6 +2,8 @@
 dokuwiki_enabled: false
 dokuwiki_available_externally: "false"
 
+dokuwiki_docker_image: linuxserver/dokuwiki:latest
+
 # directories
 dokuwiki_data_directory: "{{ docker_home }}/dokuwiki"
 

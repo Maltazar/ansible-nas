@@ -9,7 +9,7 @@
 - name: DokuWiki Docker Container
   docker_container:
     name: dokuwiki
-    image: linuxserver/dokuwiki:latest
+    image: "{{ dokuwiki_docker_image }}"
     pull: true
     volumes:
       - "{{ dokuwiki_data_directory }}:/config/dokuwiki/data:rw"

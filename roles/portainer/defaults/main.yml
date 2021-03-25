@@ -3,6 +3,7 @@ portainer_enabled: false
 portainer_available_externally: "false"
 
 # directories
+portainer_docker_image: portainer/portainer-ce
 portainer_data_directory: "{{ docker_home }}/portainer/config"
 
 # network
