@@ -18,7 +18,7 @@
     name: traefik
     image: "{{ traefik_docker_image }}"
     pull: true
-    network_mode: host
+    # network_mode: host
     volumes:
       - "{{ traefik_data_directory }}/traefik.toml:/etc/traefik/traefik.toml:ro"
       - "{{ traefik_data_directory }}/letsencrypt:/letsencrypt:rw"
