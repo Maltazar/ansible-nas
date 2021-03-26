@@ -1,8 +1,5 @@
 ---
 app_name: bitwarden
-network_base_container: 
-    - traefik
-    - frontend
 
 bitwarden_enabled: false
 bitwarden_available_externally: "false"
