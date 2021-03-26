@@ -1,9 +1,7 @@
 ---
 app_name: bitwarden
 network_base_container: 
-      - frontend
-      - "{{ app_name }}"
-
+      - traefik
 
 bitwarden_enabled: false
 bitwarden_available_externally: "false"

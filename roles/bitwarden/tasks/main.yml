@@ -6,14 +6,16 @@
   with_items:
     - "{{ bitwarden_data_directory }}"
 
-- name: '{{ app_name }} | network'
-  include_tasks: tasks/network.yml
+# - name: '{{ app_name }} | network'
+#   include_tasks: tasks/network.yml
 
 - name: Bitwarden Docker Container
   docker_container:
     name: bitwarden
     image: "{{ bitwarden_docker_image }}"
     pull: true
+    networks:
+      - name: "{{ app_name }}"
     purge_networks: true
     volumes:
       - "{{ bitwarden_data_directory }}:/data:rw"
