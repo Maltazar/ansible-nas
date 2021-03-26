@@ -33,7 +33,7 @@
       traefik.http.routers.bitwarden.tls.domains[0].main:       "{{ ansible_nas_domain }}"
       traefik.http.routers.bitwarden.tls.domains[0].sans:       "*.{{ ansible_nas_domain }}"
       traefik.http.services.bitwarden.loadbalancer.server.port: "80"
-      com.centurylinklabs.watchtower.enable:                    '{{ bitwarden_watchtower_traefik | default('false') }}'
+      com.centurylinklabs.watchtower.enable:                    "{{ bitwarden_watchtower_traefik }}"
     memory: "{{ bitwarden_memory }}"
     restart_policy: unless-stopped
 

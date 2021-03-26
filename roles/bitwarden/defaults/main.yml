@@ -9,6 +9,7 @@ bitwarden_port_b: "3012"
 
 bitwarden_docker_image: bitwardenrs/server:latest
 bitwarden_hostname: bitwarden
+bitwarden_watchtower_traefik: false
 
 # Keep this token secret, this is password to access admin area of your server!
 # This token can be anything, but it's recommended to use a long, randomly generated string of characters,
