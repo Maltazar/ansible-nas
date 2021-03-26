@@ -36,13 +36,15 @@
       - name: frontend
     memory: "{{ traefik_memory }}"
     recreate: "{{ template_config is changed }}"
-    # labels:
-    #   traefik.enable:                                                "true"
-    #   traefik.http.routers.traefik.rule:                             "Host(`{{ ansible_nas_domain }}`) && PathPrefix(`/traefik`)"
-    #   traefik.docker.network:                                        "frontend"
-    #   traefik.http.routers.traefik.tls.certresolver:                 "letsencrypt"
-    #   traefik.http.services.traefik.loadbalancer.server.port:        "{{ traefik_port_ui }}"
-    #   com.centurylinklabs.watchtower.enable:                         '{{ traefik_watchtower_traefik | default('false') }}'
+    labels:
+      traefik.enable:                                                "true"
+      # traefik.http.routers.traefik.rule:                             "Host(`{{ ansible_nas_domain }}`)"
+      traefik.docker.network:                                        "frontend"
+      traefik.http.routers.traefik.tls.certresolver:                 "letsencrypt"
+      traefik.http.routers.traefik.rule:                             "Host(`{{ traefik_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.services.traefik.loadbalancer.server.port:        "{{ traefik_port_ui }}"
+      traefik.http.routers.traefik.service:                          "traefik"
+      # com.centurylinklabs.watchtower.enable:                         '{{ traefik_watchtower_traefik | default('false') }}'
 
 
 # "{{ traefik_secure_labels }}"

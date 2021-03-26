@@ -41,6 +41,9 @@
   docker_container:
     name: bitwarden-backup
     image: bruceforce/bw_backup:latest
+    networks:
+      - name: "{{ app_name }}"
+    purge_networks: true
     pull: true
     restart_policy: unless-stopped
     volumes_from: bitwarden

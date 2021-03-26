@@ -1,8 +1,4 @@
 ---
-app_name: bitwarden
-network_base_container: 
-      - traefik
-
 bitwarden_enabled: false
 bitwarden_available_externally: "false"
 bitwarden_data_directory: "{{ docker_home }}/bitwarden"
@@ -26,3 +22,7 @@ bitwarden_allow_signups: "false"
 # specs
 bitwarden_memory: 1g
 bitwarden_backup_memory: 1g
+
+app_name: "{{ bitwarden_hostname }}"
+network_base_container: 
+      - traefik
