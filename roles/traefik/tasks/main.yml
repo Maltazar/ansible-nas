@@ -27,7 +27,7 @@
       - "{{ traefik_data_directory }}/letsencrypt:/letsencrypt:rw"
       - "{{ traefik_log_directory }}/logs:/etc/traefik/logs:rw"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    env: "{{ traefik_environment_variables }}"
+    env_file: "{{ traefik_data_directory }}/.env"
     restart_policy: unless-stopped
     ports:
       - "80:80"
@@ -46,7 +46,7 @@
       traefik.http.routers.traefik.tls.certresolver:                 "letsencrypt"
       traefik.http.routers.traefik.tls.domains[0].main:              "{{ ansible_nas_domain }}"
       traefik.http.routers.traefik.tls.domains[0].sans:              "*.{{ ansible_nas_domain }}"
-      com.centurylinklabs.watchtower.enable:                         "{{ traefik_watchtower_traefik }}"
+      com.centurylinklabs.watchtower.enable:                         "{{ watchtower_traefik }}"
 
 
 # "{{ traefik_secure_labels }}"
