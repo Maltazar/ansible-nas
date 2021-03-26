@@ -4,7 +4,6 @@
 - name: '{{ app_name }} | create network'
   docker_network:
     name:      '{{ app_name }}'
-    internal:   "yes"
     state:     'present'
 
         
