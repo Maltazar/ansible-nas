@@ -6,8 +6,8 @@
   with_items:
     - "{{ bitwarden_data_directory }}"
 
-# - name: '{{ app_name }} | network'
-#   include_tasks: tasks/network.yml
+- name: '{{ app_name }} | network'
+  include_tasks: tasks/network.yml
 
 - name: Bitwarden Docker Container
   docker_container:
