@@ -59,3 +59,19 @@
   include_role:
     name: prep_ufw
   when: ansible_os_family == "Debian" or ansible_os_family == "Ubuntu"
+
+- name: download bitwarden cli
+  get_url:
+    url: "{{ bitwarden_cli_url }}"
+    dest: /tmp/bw.zip
+
+- name: Extract bitwarden cli zip file
+  ansible.builtin.unarchive:
+    src: /tmp/bw.zip
+    dest: /usr/local/bin
+
+- name: move bitwarden cli to path folder and set correct permissions
+  copy:
+    src: /tmp/bw
+    dest: /usr/local/bin/bw
+    mode: a+x

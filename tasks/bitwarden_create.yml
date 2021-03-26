@@ -1,0 +1,25 @@
+---
+- name: Sync Bitwarden
+  delegate_to: localhost
+  shell: bw sync
+  tags:
+    - always
+
+- name: Generate new password
+  delegate_to: localhost
+  shell: bw generate -uln --length 24
+  register: bwpw
+  tags:
+    - always
+
+- name: Convert Bitwarden result to JSON
+  set_fact: 
+    bitwarden_new_password: "{{ bwpw.stdout }}"
+  tags:
+    - always
+
+- name: Create Bitwarden item
+  delegate_to: localhost
+  shell: echo '{"type":1,"name":"{{ bitwarden_new_item_name }}","notes":"created by ansible-nas","login":{"username":"{{ bitwarden_new_username }}","password":"{{ bitwarden_new_password }}"},}' | bw encode | bw create item
+  tags:
+    - always

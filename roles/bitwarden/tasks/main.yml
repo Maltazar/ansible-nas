@@ -7,9 +7,6 @@
     - "{{ bitwarden_data_directory }}"
 
 
-# ADMIN_TOKEN: "{{ bitwarden_admin_token }}"
-
-
 - name: '{{ app_name }} | network'
   include_tasks: tasks/network.yml
 
