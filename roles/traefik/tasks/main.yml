@@ -34,12 +34,13 @@
       - "443:443"
     networks:
       - name: frontend
+    purge_networks: true
     memory: "{{ traefik_memory }}"
     recreate: "{{ template_config is changed }}"
     labels:
       traefik.enable:                                                "true"
       traefik.docker.network:                                        "frontend"
-      traefik.http.routers.traefik.service:                          "traefik"
+      traefik.http.routers.traefik.service:                          "api@internal"
       traefik.http.routers.traefik.rule:                             "Host(`{{ traefik_hostname }}.{{ ansible_nas_domain }}`)"
       traefik.http.services.traefik.loadbalancer.server.port:        "{{ traefik_port_ui }}"
       traefik.http.routers.traefik.tls.certresolver:                 "letsencrypt"
