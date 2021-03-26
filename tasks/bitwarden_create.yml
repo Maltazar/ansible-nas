@@ -20,6 +20,6 @@
 
 - name: Create Bitwarden item
   delegate_to: localhost
-  shell: echo '{"type":1,"name":"{{ bitwarden_new_item_name }}","notes":"created by ansible-nas","login":{"username":"{{ bitwarden_new_username }}","password":"{{ bitwarden_new_password }}"},}' | bw encode | bw create item
+  shell: echo '{ "organizationId": null, "folderId": null, "type": 1, "name": "{{ bitwarden_new_item_name }}", "notes": "created by ansible-nas", "favorite": false, "fields": [], "login": {"uris":[],"username":"{{ bitwarden_new_username }}","password":"{{ bitwarden_new_password }}","totp":null}, "secureNote": null, "card": null, "identity": null, "note": "" }' | bw encode | bw create item
   tags:
     - always
