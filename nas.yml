@@ -39,6 +39,11 @@
         - ansible-nas-docker
         - ansible-nas
 
+    - role: traefik
+      tags:
+        - traefik
+      when: (traefik_enabled | default(False))
+
     - role: bitwarden
       tags:
         - bitwarden
@@ -258,10 +263,6 @@
         - utorrent
       when: (utorrent_enabled | default(False))
 
-    - role: traefik
-      tags:
-        - traefik
-      when: (traefik_enabled | default(False))
 
     - role: watchtower
       tags:
