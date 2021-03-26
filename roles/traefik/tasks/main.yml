@@ -43,5 +43,5 @@
       traefik.http.routers.traefik.tls.certresolver:                 "letsencrypt"
       # traefik.http.routers.traefik.service:                          "traefik"
       traefik.http.services.traefik.loadbalancer.server.port:        "{{ traefik_port_ui }}"
-      "{{ traefik_secure_labels }}"
+      # "{{ traefik_secure_labels }}"
       com.centurylinklabs.watchtower.enable:                         "{{ traefik_watchtower_traefik | default('false') }}"
