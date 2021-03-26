@@ -13,12 +13,6 @@
     dest: "{{ traefik_data_directory }}/traefik.toml"
   register: template_config
 
-- name: adding Traefik .env file
-  template:
-    src:     .env
-    dest:    "{{ traefik_data_directory }}/.env"
-    owner:   root
-    group:   root
 
 - name: Traefik Docker Container
   docker_container:
@@ -30,7 +24,7 @@
       - "{{ traefik_data_directory }}/letsencrypt:/letsencrypt:rw"
       - "{{ traefik_log_directory }}/logs:/etc/traefik/logs:rw"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    env_file: "{{ traefik_data_directory }}/.env"
+    env: "{{ traefik_environment_variables }}"
     restart_policy: unless-stopped
     ports:
       - "80:80"
