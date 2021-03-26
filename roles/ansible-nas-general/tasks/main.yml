@@ -53,3 +53,9 @@
     mode: "u=rwX,g=rwX,o=rX"
     recurse: false
   loop: "{{ samba_shares }}"
+
+
+- name: setup firewall on Ubuntu
+  include_role:
+    name: prep_ufw
+  when: ansible_os_family == "Debian" or ansible_os_family == "Ubuntu"
