@@ -6,7 +6,7 @@
   with_items:
     - "{{ bitwarden_data_directory }}"
 
-- name: adding .env file
+- name: adding bitwarden .env file
   template:
     src:     .env
     dest:    "{{ bitwarden_data_directory }}/.env"

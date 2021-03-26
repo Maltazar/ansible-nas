@@ -13,9 +13,12 @@
     dest: "{{ traefik_data_directory }}/traefik.toml"
   register: template_config
 
-# - name: Create the web network
-#   docker_network:
-#     name: traefik
+- name: adding Traefik .env file
+  template:
+    src:     .env
+    dest:    "{{ traefik_data_directory }}/.env"
+    owner:   root
+    group:   root
 
 - name: Traefik Docker Container
   docker_container:
