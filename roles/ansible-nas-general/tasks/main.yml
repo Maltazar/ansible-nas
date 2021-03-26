@@ -67,11 +67,11 @@
 
 - name: Extract bitwarden cli zip file
   ansible.builtin.unarchive:
-    src: /tmp/bw.zip
+    remote_src: /tmp/bw.zip
     dest: /tmp/
 
 - name: move bitwarden cli to path folder and set correct permissions
   copy:
-    src: /tmp/bw
+    remote_src: /tmp/bw
     dest: /usr/local/bin/bw
     mode: a+x
