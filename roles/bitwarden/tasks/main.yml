@@ -6,12 +6,9 @@
   with_items:
     - "{{ bitwarden_data_directory }}"
 
-- name: adding bitwarden .env file
-  template:
-    src:     .env
-    dest:    "{{ bitwarden_data_directory }}/.env"
-    owner:   root
-    group:   root
+
+# ADMIN_TOKEN: "{{ bitwarden_admin_token }}"
+
 
 - name: '{{ app_name }} | network'
   include_tasks: tasks/network.yml
@@ -26,13 +23,10 @@
     purge_networks: true
     volumes:
       - "{{ bitwarden_data_directory }}:/data:rw"
-    # env:
-    # env_file: /local/dir/some/file.env
-
-      # SIGNUPS_ALLOWED: "{{ bitwarden_allow_signups }}"
-      # ADMIN_TOKEN: "{{ bitwarden_admin_token }}"
-      # LOG_FILE: "/data/bitwarden.log"
-      # WEBSOCKET_ENABLED: "true"
+    env:
+      SIGNUPS_ALLOWED: "{{ bitwarden_allow_signups }}"
+      LOG_FILE: "/data/bitwarden.log"
+      WEBSOCKET_ENABLED: "true"
     labels:
       traefik.enable:                                           "{{ bitwarden_available_externally }}"
       traefik.docker.network:                                   "frontend"
