@@ -5,6 +5,7 @@
 # You'll also need to map ports 80 and 443 from your router to your ansible-nas server, then enable the per-app "available_externally"
 # settings.
 traefik_enabled: false
+app_name: traefik
 
 # directories
 traefik_data_directory: "{{ docker_home }}/traefik"
@@ -16,6 +17,7 @@ traefik_port_ui: "8083"
 
 traefik_docker_image: traefik:v2.4
 traefik_log_level: "INFO"
+traefik_log_directory: "{{ docker_home }}/traefik/logs"
 
 # find the relevant name and environment variables for your DNS provider at https://go-acme.github.io/lego/dns/
 traefik_dns_provider: cloudflare

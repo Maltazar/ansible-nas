@@ -32,6 +32,11 @@
     groups: docker
     append: yes
 
+- name: 'Create frontend network'
+  docker_network:
+    name:  'frontend'
+    state: 'present'
+
 - name: Update Docker home from install default
   template:
     src: daemon.json

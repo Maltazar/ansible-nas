@@ -1,0 +1,9 @@
+---
+# tasks file to create docker app_name network
+
+- name: '{{ app_name }} | create network'
+  docker_network:
+    name:      '{{ app_name }}'
+    state:     'present'
+
+        

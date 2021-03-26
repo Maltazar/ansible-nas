@@ -13,17 +13,35 @@
     dest: "{{ traefik_data_directory }}/traefik.toml"
   register: template_config
 
+# - name: Create the web network
+#   docker_network:
+#     name: traefik
+
 - name: Traefik Docker Container
   docker_container:
     name: traefik
     image: "{{ traefik_docker_image }}"
     pull: true
-    # network_mode: host
     volumes:
       - "{{ traefik_data_directory }}/traefik.toml:/etc/traefik/traefik.toml:ro"
       - "{{ traefik_data_directory }}/letsencrypt:/letsencrypt:rw"
+      - "{{ traefik_log_directory }}/logs:/etc/traefik/logs:rw"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     env: "{{ traefik_environment_variables }}"
     restart_policy: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - name: frontend
     memory: "{{ traefik_memory }}"
     recreate: "{{ template_config is changed }}"
+    labels:
+      traefik.enable:                                                "true"
+      traefik.http.routers.traefik.rule:                             "Host(`{{ ansible_nas_domain }}`) && PathPrefix(`/traefik`)"
+      traefik.docker.network:                                        "frontend"
+      traefik.http.routers.traefik.tls.certresolver:                 "letsencrypt"
+      # traefik.http.routers.traefik.service:                          "traefik"
+      traefik.http.services.traefik.loadbalancer.server.port:        "{{ traefik_port_ui }}"
+      "{{ traefik_secure_labels }}"
+      com.centurylinklabs.watchtower.enable:                         "{{ traefik_watchtower_traefik | default('false') }}"

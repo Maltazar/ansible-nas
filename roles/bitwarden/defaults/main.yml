@@ -1,4 +1,9 @@
 ---
+app_name: bitwarden
+network_base_container: 
+    - traefik
+    - frontend
+
 bitwarden_enabled: false
 bitwarden_available_externally: "false"
 bitwarden_data_directory: "{{ docker_home }}/bitwarden"
