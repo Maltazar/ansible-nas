@@ -33,3 +33,7 @@
       traefik.http.routers.portainer.tls.domains[0].sans:       "*.{{ ansible_nas_domain }}"
       traefik.http.services.portainer.loadbalancer.server.port: "9000"
       com.centurylinklabs.watchtower.enable:                    "{{ watchtower_portainer }}"
+
+
+- name: '{{ app_name }} | network'
+  include_tasks: tasks/network_append.yml

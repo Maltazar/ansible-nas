@@ -51,3 +51,7 @@
       traefik.http.routers.dokuwiki.tls.domains[0].sans:        "*.{{ ansible_nas_domain }}"
       traefik.http.services.dokuwiki.loadbalancer.server.port:  "80"
       com.centurylinklabs.watchtower.enable:                    "{{ watchtower_dokuwiki }}"
+
+- name: '{{ app_name }} | network'
+  include_tasks: tasks/network_append.yml
+  

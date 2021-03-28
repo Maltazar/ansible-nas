@@ -19,3 +19,7 @@ dokuwiki_port: "8085"
 dokuwiki_memory: 1g
 
 watchtower_dokuwiki: false
+
+app_name: "{{ dokuwiki_hostname }}"
+network_base_container: 
+    - traefik
