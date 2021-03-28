@@ -1,0 +1,43 @@
+---
+portainer_enabled: false
+portainer_available_externally: "false"
+
+# directories
+
+portainer_data_directory: "{{ docker_home }}/portainer/config"
+
+# network
+portainer_port: "9000"
+portainer_hostname: "portainer"
+
+
+
+
+
+
+###
+### Calibre-web
+###
+calibre_enabled: false
+
+calibre_docker_image: linuxserver/calibre-web:latest
+calibre_data_directory: "{{ docker_home }}/calibre"
+
+calibre_available_externally: "false"
+
+calibre_user_id: "0"
+calibre_group_id: "0"
+calibre_books_root: "{{ books_root }}"
+calibre_port: "8084"
+# To disable ebook conversion set calibre_ebook_conversion to "". To enable it set it to "linuxserver/calibre-web:calibre"
+calibre_ebook_conversion: "linuxserver/calibre-web:calibre"
+calibre_hostname: "calibre"
+
+# specs
+calibre_memory: 1g
+
+watchtower_calibre: false
+
+app_name: "{{ calibre_hostname }}"
+network_base_container: 
+    - traefik
