@@ -1,7 +1,0 @@
----
-
-- name: Sync-Bitwarden
-  delegate_to: localhost
-  shell: bw sync
-  tags:
-    - always

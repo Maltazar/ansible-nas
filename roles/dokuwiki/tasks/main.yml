@@ -1,4 +1,20 @@
 ---
+- name: Create DokuWiki group
+  group:
+    name: dokuwiki
+    gid: "{{ dokuwiki_group_id }}"
+    state: present
+
+- name: Create DokuWiki user
+  user:
+    name: dokuwiki
+    uid: "{{ dokuwiki_user_id }}"
+    state: present
+    system: yes
+    update_password: on_create
+    create_home: no
+    group: dokuwiki
+
 - name: Create DokuWiki Directories
   file:
     path: "{{ item }}"
@@ -6,15 +22,19 @@
   with_items:
     - "{{ dokuwiki_data_directory }}/data"
 
+- name: '{{ app_name }} | network'
+  include_tasks: tasks/network.yml
+
 - name: DokuWiki Docker Container
   docker_container:
     name: dokuwiki
     image: "{{ dokuwiki_docker_image }}"
     pull: true
+    networks:
+      - name: "{{ app_name }}"
+    purge_networks: true
     volumes:
       - "{{ dokuwiki_data_directory }}:/config/dokuwiki/data:rw"
-    ports:
-      - "{{ dokuwiki_port }}:80"
     env:
       TZ: "{{ ansible_nas_timezone }}"
       PUID: "{{ dokuwiki_user_id }}"
@@ -22,9 +42,12 @@
     restart_policy: unless-stopped
     memory: "{{ dokuwiki_memory }}"
     labels:
-      traefik.enable: "{{ dokuwiki_available_externally }}"
-      traefik.http.routers.dokuwiki.rule: "Host(`{{ dokuwiki_hostname }}.{{ ansible_nas_domain }}`)"
-      traefik.http.routers.dokuwiki.tls.certresolver: "letsencrypt"
-      traefik.http.routers.dokuwiki.tls.domains[0].main: "{{ ansible_nas_domain }}"
-      traefik.http.routers.dokuwiki.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
-      traefik.http.services.dokuwiki.loadbalancer.server.port: "80"
+      traefik.enable:                                           "{{ dokuwiki_available_externally }}"
+      traefik.docker.network:                                   "frontend"
+      traefik.http.routers.dokuwiki.service:                    "dokuwiki"
+      traefik.http.routers.dokuwiki.rule:                       "Host(`{{ dokuwiki_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.dokuwiki.tls.certresolver:           "letsencrypt"
+      traefik.http.routers.dokuwiki.tls.domains[0].main:        "{{ ansible_nas_domain }}"
+      traefik.http.routers.dokuwiki.tls.domains[0].sans:        "*.{{ ansible_nas_domain }}"
+      traefik.http.services.dokuwiki.loadbalancer.server.port:  "80"
+      com.centurylinklabs.watchtower.enable:                    "{{ watchtower_dokuwiki }}"

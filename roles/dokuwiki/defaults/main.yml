@@ -17,3 +17,5 @@ dokuwiki_port: "8085"
 
 # specs
 dokuwiki_memory: 1g
+
+watchtower_dokuwiki: false

@@ -12,3 +12,6 @@ portainer_hostname: "portainer"
 
 # specs
 portainer_memory: 1g
+
+
+watchtower_portainer: false
