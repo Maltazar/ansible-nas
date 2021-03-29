@@ -34,7 +34,7 @@ calibre_ebook_conversion: "linuxserver/calibre-web:calibre"
 calibre_hostname: "calibre"
 
 # specs
-calibre_memory: 1g
+calibre_memory: 512m
 
 watchtower_calibre: false
 

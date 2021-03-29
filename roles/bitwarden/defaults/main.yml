@@ -20,8 +20,8 @@ bitwarden_watchtower_traefik: false
 bitwarden_allow_signups: "false"
 
 # specs
-bitwarden_memory: 1g
-bitwarden_backup_memory: 1g
+bitwarden_memory: 512m
+bitwarden_backup_memory: 512m
 
 app_name: "{{ bitwarden_hostname }}"
 network_base_container: 
